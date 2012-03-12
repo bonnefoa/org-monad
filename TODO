@@ -1,0 +1,14 @@
+v0.1:
+-----
+* avoir une structure de donnée qui puisse gérer des taches ala org-mode
+* écrire le backend pour stocker et accéder à de cette structure de données
+* faire un proxy-backend qui pull des taches via l'api rest de redmine
+* avoir la possibilite de marquer qu'une tache doit etre pousse sur un backend
+* une interface basique (CLI?) pour afficher le tout
+*
+
+v0.2:
+-----
+* Write the client/server stuff
+*
+
