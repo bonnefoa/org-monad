@@ -25,6 +25,8 @@ Library
   hs-source-dirs:   src
   Ghc-options:      -Wall -fno-warn-orphans
   Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables
+  exposed-modules:
+    OrgMonad.Type
   Build-depends:
     base >= 4.1 && < 5
     , time >= 1.4
