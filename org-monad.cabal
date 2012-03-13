@@ -17,8 +17,8 @@ Executable org-monad
   Ghc-options:      -Wall -fno-warn-orphans
   Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables
   Build-depends:
-    base >= 4.1 && < 5,
-    org-monad
+    base >= 4.1 && < 5
+    , org-monad
 
 
 Library
@@ -27,6 +27,7 @@ Library
   Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables
   Build-depends:
     base >= 4.1 && < 5
+    , time >= 1.4
 
 
 Test-Suite test-org-monad
@@ -39,11 +40,11 @@ Test-Suite test-org-monad
     Distribution.TestSuite.QuickCheck2
   test-module           : Test.Suite
   build-depends         :
-    base >= 4.1 && < 5,
-    Cabal,
-    org-monad,
-    HUnit >= 1.2,
-    random >= 1,
-    QuickCheck >= 2.4,
-    template-haskell >= 2.6
+    base >= 4.1 && < 5
+    , Cabal
+    , org-monad
+    , HUnit >= 1.2
+    , random >= 1
+    , QuickCheck >= 2.4
+    , template-haskell >= 2.6
 
