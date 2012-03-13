@@ -9,12 +9,41 @@ Author:             Julien Dessaux
 Maintainer:         adyxax@adyxax.org
 Category:           OrgMonad
 Build-type:         Simple
-Cabal-version:      >=1.2
+Cabal-version:      >=1.9.2
 
 Executable org-monad
-  hs-source-dirs:   src
+  hs-source-dirs:   prog
   Main-is:          Main.hs
-  Ghc-options:      -Wall
+  Ghc-options:      -Wall -fno-warn-orphans
   Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables
-  Build-depends:    base >= 4.1 && < 5
+  Build-depends:
+    base >= 4.1 && < 5,
+    org-monad
+
+
+Library
+  hs-source-dirs:   src
+  Ghc-options:      -Wall -fno-warn-orphans
+  Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables
+  Build-depends:
+    base >= 4.1 && < 5
+
+
+Test-Suite test-org-monad
+  type                  : detailed-0.9
+  hs-source-dirs        : testsuite/src
+  Extensions            : TemplateHaskell
+  Cpp-options           : -DWITH_TH
+  other-modules:
+    Distribution.TestSuite.HUnit
+    Distribution.TestSuite.QuickCheck2
+  test-module           : Test.Suite
+  build-depends         :
+    base >= 4.1 && < 5,
+    Cabal,
+    org-monad,
+    HUnit >= 1.2,
+    random >= 1,
+    QuickCheck >= 2.4,
+    template-haskell >= 2.6
 
