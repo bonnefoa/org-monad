@@ -2,82 +2,39 @@ module OrgMonad.Type
   where
 
 import Data.Monoid
-import Data.Time.LocalTime
+import Control.Monad.Reader
 
 -- * Task definition
 
 -- | Datastructure for org-monad tasks
-data Task = Task {
+data Monoid a => Task a = Task {
   taskId            :: Integer
   , taskName        :: String
-  , taskChildren    :: [Task]
-  , taskDescription :: Maybe String
-  , taskBegin       :: Maybe LocalTime
-  , taskEnd         :: Maybe LocalTime
-  , taskDuration    :: Maybe Integer
-  , taskBackends    :: [ BackendType ]
+  , taskChildren    :: [Task a]
+  , taskBackends    :: a
 }
 
-instance Eq Task where
-  task1 == task2 = taskId task1 == taskId task2
-
-instance Show Task
- where show task =
-          concat [
-            "Task |id : " ,show $ taskId task
-            ," |name : ",show $ taskName task
-          ]
-
-instance Monoid Task where
-  mempty = Task {
-    taskId           = 0
-    ,taskName        = ""
-    ,taskChildren    = []
-    ,taskDescription = Nothing
-    ,taskBegin       = Nothing
-    ,taskEnd         = Nothing
-    ,taskDuration    = Nothing
-    ,taskBackends    = []
-    }
-  mappend task1 task2 = Task {
-    taskId           = 0
-    ,taskName        = ""
-    ,taskChildren    = []
-    ,taskDescription = Nothing
-    ,taskBegin       = Nothing
-    ,taskEnd         = Nothing
-    ,taskDuration    = Nothing
-    ,taskBackends    = []
-  }
-
-
-
-
+class Monoid a => BackendSync a b where
+  backendPull :: a -> (ReaderT b) IO (Task a)
+  backendPush :: Task a -> (ReaderT b) IO ()
 
 -- * Backend definition
 
--- | Types of backends available for tasks data BackendType =
-data BackendType =
-  Redmine
-  | GoogleCal
-  deriving (Show, Eq)
-
 -- | Configuration for redmine backend
-data RedmineBackend = RedmineBackend {
+data RedmineBackendConf = RedmineBackendConf {
     redmineToken :: String
+    , redmineHost :: String
 }
 
 -- | Configuration for google cal backend
-data GcalBackend = GcalBackend {
+data GcalBackendConf = GcalBackendConf {
     gcalToken :: String
 }
 
 -- * Global configuration
 
-{-
- -data Configuration = Configuration {
- -  backends :: RedmineBackend
- - }
- -}
-
+data OrgMonad = OrgMonad {
+    orgMonadRedmineConf :: RedmineBackendConf
+    , orgMonadGcalConf :: GcalBackendConf
+}
 

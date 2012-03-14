@@ -24,12 +24,15 @@ Executable org-monad
 Library
   hs-source-dirs:   src
   Ghc-options:      -Wall -fno-warn-orphans
-  Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables
+  Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables MultiParamTypeClasses
   exposed-modules:
     OrgMonad.Type
+    , OrgMonad.TypeDecl
+    , OrgMonad.Utils
   Build-depends:
     base >= 4.1 && < 5
     , time >= 1.4
+    , mtl >= 2.0
 
 
 Test-Suite test-org-monad
