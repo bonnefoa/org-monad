@@ -1,20 +1,19 @@
 module OrgMonad.Type
   where
 
-import Data.Monoid
 import Control.Monad.Reader
 
 -- * Task definition
 
 -- | Datastructure for org-monad tasks
-data Monoid a => Task a = Task {
+data Task a = Task {
   taskId            :: Integer
   , taskName        :: String
   , taskChildren    :: [Task a]
-  , taskBackends    :: a
+  , taskBackends    :: [ a ]
 }
 
-class Monoid a => BackendSync a b where
+class BackendSync a b where
   backendPull :: a -> (ReaderT b) IO (Task a)
   backendPush :: Task a -> (ReaderT b) IO ()
 
