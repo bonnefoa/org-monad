@@ -14,24 +14,23 @@ import OrgMonad.Type
 import qualified Data.Map as M
 
 
-type AcidOrgState = AcidState OrgDB
+type MetaDataState = AcidState MetaOrgDB
 
-$(deriveSafeCopy 0 'base ''Task)
 $(deriveSafeCopy 0 'base ''MetaTask)
-$(deriveSafeCopy 0 'base ''OrgDB)
+$(deriveSafeCopy 0 'base ''MetaOrgDB)
 
-getAcidState :: IO(AcidOrgState)
+getAcidState :: IO(MetaDataState)
 getAcidState = openLocalState mempty
 
-writeState :: Task -> Update OrgDB ()
+writeState :: MetaTask -> Update MetaOrgDB ()
 writeState task = do
-  orgDB <- get
-  put (updateOrgDBWithTask orgDB task)
+  metaOrgDB <- get
+  put (metaOrgDB {dbMetaTasks = task : (dbMetaTasks metaOrgDB) })
 
-queryState :: Query OrgDB TaskMap
+queryState :: Query MetaOrgDB [MetaTask]
 queryState = do
-  OrgDB task <- ask
+  MetaOrgDB task <- ask
   return task
 
-$(makeAcidic ''OrgDB ['writeState, 'queryState])
+$(makeAcidic ''MetaOrgDB ['writeState, 'queryState])
 

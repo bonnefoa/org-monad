@@ -6,8 +6,8 @@ import Data.Monoid
 import Test.HUnit hiding (assert)
 import Data.Acid
 
-import OrgMonad.Type
-import OrgMonad.AcidState
+import OrgMonad.Backends.AcidType
+import OrgMonad.Backends.AcidBackend
 
 import qualified Data.Map as M
 import System.Directory
@@ -19,7 +19,7 @@ assertionAcidState :: Assertion
 assertionAcidState = do
   removeDirectoryRecursive "state"
   acid <- getAcidState
-  let testDb = Task 1 "test" mempty
+  let testDb = Task 1 "test"
   update acid (WriteState testDb)
   res <- query acid QueryState
   Just testDb @?= M.lookup 1 res
