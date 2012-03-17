@@ -1,5 +1,6 @@
 module Main where
 
 main :: IO ()
-main = print "Hello org-monad!"
+main = do
+  print "Hello org-monad!"
 

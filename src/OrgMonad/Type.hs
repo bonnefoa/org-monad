@@ -3,7 +3,18 @@ module OrgMonad.Type
 
 import Control.Monad.Reader
 
+-- * Types synonyms
+
+type OrgMonadR = ReaderT OrgMonad
+
 -- * Task definition
+
+-- | Datastructure for org-monad tasks
+data MetaTask a = MetaTask {
+  taskId            :: Integer
+  , taskChildren    :: [Task a]
+  , taskBackends    :: [ a ]
+}
 
 -- | Datastructure for org-monad tasks
 data Task a = Task {
