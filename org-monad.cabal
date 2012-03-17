@@ -27,9 +27,6 @@ Library
   Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables MultiParamTypeClasses TemplateHaskell
   exposed-modules:
     OrgMonad.Type
-    , OrgMonad.TypeDecl
-    , OrgMonad.AcidState
-    , OrgMonad.Utils
   Build-depends:
     base >= 4.1 && < 5
     , time >= 1.4
