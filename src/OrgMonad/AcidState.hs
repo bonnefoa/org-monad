@@ -11,6 +11,7 @@ import Data.SafeCopy
 
 import Data.Typeable
 import OrgMonad.Type
+import qualified Data.Map as M
 
 
 type AcidOrgState = AcidState OrgDB
@@ -23,12 +24,14 @@ getAcidState :: IO(AcidOrgState)
 getAcidState = openLocalState mempty
 
 writeState :: Task -> Update OrgDB ()
-writeState task
-    = put (OrgDB task)
+writeState task = do
+  orgDB <- get
+  put (updateOrgDBWithTask orgDB task)
 
-queryState :: Query OrgDB Task
-queryState = do OrgDB task <- ask
-                return task
+queryState :: Query OrgDB TaskMap
+queryState = do
+  OrgDB task <- ask
+  return task
 
 $(makeAcidic ''OrgDB ['writeState, 'queryState])
 

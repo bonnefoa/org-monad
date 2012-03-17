@@ -9,13 +9,16 @@ import Data.Acid
 import OrgMonad.Type
 import OrgMonad.AcidState
 
+import qualified Data.Map as M
+
 testAcidState :: Test
 testAcidState = TestCase assertionAcidState
 
 assertionAcidState :: Assertion
 assertionAcidState = do
   acid <- getAcidState
-  let testTask = Task "test" mempty
-  update acid (WriteState testTask)
+  let testDb = Task 1 "test" mempty
+  update acid (WriteState testDb)
   res <- query acid QueryState
-  testTask @?= res
+  Just testDb @?= M.lookup 1 res
+

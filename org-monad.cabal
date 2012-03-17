@@ -34,6 +34,7 @@ Library
     , mtl >= 2.0
     , acid-state == 0.6.3
     , safecopy == 0.6.1
+    , containers == 0.4.1.0
 
 
 Test-Suite test-org-monad
@@ -57,4 +58,5 @@ Test-Suite test-org-monad
     , acid-state == 0.6.3
     , safecopy == 0.6.1
     , time >= 1.4
+    , containers == 0.4.1.0
 
