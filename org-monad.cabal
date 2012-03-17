@@ -27,6 +27,7 @@ Library
   Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables MultiParamTypeClasses TemplateHaskell
   exposed-modules:
     OrgMonad.Type
+    , OrgMonad.AcidState
   Build-depends:
     base >= 4.1 && < 5
     , time >= 1.4
@@ -43,6 +44,7 @@ Test-Suite test-org-monad
   other-modules:
     Distribution.TestSuite.HUnit
     Distribution.TestSuite.QuickCheck2
+    Test.AcidState
   test-module           : Test.Suite
   build-depends         :
     base >= 4.1 && < 5
@@ -52,4 +54,7 @@ Test-Suite test-org-monad
     , random >= 1
     , QuickCheck >= 2.4
     , template-haskell >= 2.6
+    , acid-state == 0.6.3
+    , safecopy == 0.6.1
+    , time >= 1.4
 
