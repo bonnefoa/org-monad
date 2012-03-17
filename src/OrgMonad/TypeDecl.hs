@@ -5,6 +5,8 @@ import Control.Monad.Reader
 import Data.Monoid
 import OrgMonad.Type
 
+{-
+
 instance Eq (Task a) where
   task1 == task2 = (taskId task1) == (taskId task2)
 
@@ -26,20 +28,8 @@ instance Monoid (Task a) where
     ,taskBackends    = mappend (taskBackends task1) (taskBackends task2)
   }
 
-data RedmineBackendTask = RedmineBackendTask {
-  redmineId :: String
-}
-
-data GcalBackendTask = GcalBackendTask {
-  gcalId :: String
-}
-
-data BackendTask = BackendTask {
-  redmineBackend :: Maybe RedmineBackendTask
-  , gcalBackend :: Maybe GcalBackendTask
-}
-
 instance BackendSync BackendTask OrgMonad where
   backendPull _backendTask = return mempty
   backendPush _task = return ()
 
+-}

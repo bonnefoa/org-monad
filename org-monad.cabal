@@ -15,7 +15,7 @@ Executable org-monad
   hs-source-dirs:   prog
   Main-is:          Main.hs
   Ghc-options:      -Wall -fno-warn-orphans
-  Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables
+  Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables TemplateHaskell
   Build-depends:
     base >= 4.1 && < 5
     , org-monad
@@ -24,16 +24,18 @@ Executable org-monad
 Library
   hs-source-dirs:   src
   Ghc-options:      -Wall -fno-warn-orphans
-  Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables MultiParamTypeClasses
+  Extensions:       DeriveDataTypeable FlexibleContexts ScopedTypeVariables MultiParamTypeClasses TemplateHaskell
   exposed-modules:
     OrgMonad.Type
     , OrgMonad.TypeDecl
+    , OrgMonad.AcidState
     , OrgMonad.Utils
   Build-depends:
     base >= 4.1 && < 5
     , time >= 1.4
     , mtl >= 2.0
     , acid-state == 0.6.3
+    , safecopy == 0.6.1
 
 
 Test-Suite test-org-monad
