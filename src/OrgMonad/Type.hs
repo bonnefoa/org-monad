@@ -48,4 +48,3 @@ updateOrgDBWithTask orgDB task =
   orgDB {
     dbTasks = (M.insert (taskId task) task (dbTasks orgDB)) }
 
-
