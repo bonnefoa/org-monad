@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE DeriveDataTypeable, TypeFamilies, TemplateHaskell #-}
 module OrgMonad.MetaState
   where
 

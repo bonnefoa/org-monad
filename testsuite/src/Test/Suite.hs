@@ -4,6 +4,7 @@ module Test.Suite ( tests ) where
 import Distribution.TestSuite
 import qualified Distribution.TestSuite.HUnit as HU
 import qualified Distribution.TestSuite.QuickCheck2 as QC
+import Test.OrgMonad
 import Test.MetaState
 import Test.Backends.AcidBackend
 
@@ -13,6 +14,7 @@ tests = huTests ++ qcTests
     huTests = $(HU.autoTest [
       "testMetaState"
       , "testAcidBackend"
+      , "testOrgMonad"
       ])
     qcTests = $(QC.autoTest [
       ])

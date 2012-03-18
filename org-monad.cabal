@@ -49,8 +49,9 @@ Test-Suite test-org-monad
   other-modules:
     Distribution.TestSuite.HUnit
     Distribution.TestSuite.QuickCheck2
-    Test.MetaState
     Test.Backends.AcidBackend
+    Test.MetaState
+    Test.OrgMonad
   test-module           : Test.Suite
   build-depends         :
     base >= 4.1 && < 5
