@@ -13,12 +13,6 @@ data MetaTask = MetaTask {
   metaTaskId :: Integer
 } deriving (Show, Typeable, Eq)
 
-instance Monoid MetaTask where
-  mempty = MetaTask {
-    metaTaskId = 0
-  }
-  mappend t1 _t2 = t1
-
 -- * Dbs definitions
 
 data MetaOrgDB = MetaOrgDB {
