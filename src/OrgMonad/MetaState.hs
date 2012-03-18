@@ -8,6 +8,8 @@ import Data.Acid
 import Data.SafeCopy
 import OrgMonad.MetaType
 
+type MetaAcidOrgState a = AcidState (MetaOrgDB a)
+
 $(deriveSafeCopy 0 'base ''MetaTask)
 $(deriveSafeCopy 0 'base ''MetaOrgDB)
 

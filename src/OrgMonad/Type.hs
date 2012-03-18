@@ -5,12 +5,13 @@ import qualified Data.Map as M
 import Data.Typeable
 import Data.Monoid
 
-type TaskMap = M.Map Integer Task
+type TaskId = Integer
+type TaskMap = M.Map TaskId Task
 
 -- * Task definitions
 
 data Task = Task {
-  taskId     :: Integer
+  taskId     :: TaskId
   , taskName :: String
 } deriving (Show, Typeable, Eq)
 
@@ -20,5 +21,4 @@ instance Monoid Task where
       , taskName = mempty
     }
   mappend t1 _t2 = t1
-
 
