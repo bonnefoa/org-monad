@@ -1,30 +1,23 @@
 module OrgMonad.Type
   where
 
-import Data.Monoid
-import Data.Typeable
 import qualified Data.Map as M
+import Data.Typeable
+import Data.Monoid
 
-type MetaTaskMap = M.Map Integer MetaTask
+type TaskMap = M.Map Integer Task
 
--- * MetaTask definitions
+-- * Task definitions
 
-data MetaTask = MetaTask {
-  metaTaskId :: Integer
+data Task = Task {
+  taskId     :: Integer
+  , taskName :: String
 } deriving (Show, Typeable, Eq)
 
--- * Dbs definitions
-
-data MetaOrgDB = MetaOrgDB {
-  dbMetaTasks :: MetaTaskMap
-} deriving (Show, Typeable)
-
-instance Monoid MetaOrgDB where
-  mempty = MetaOrgDB mempty
+instance Monoid Task where
+  mempty = Task {
+      taskId     = 0
+      , taskName = mempty
+    }
   mappend t1 _t2 = t1
-
-updateMetaOrgDBWithTask :: MetaOrgDB -> MetaTask -> MetaOrgDB
-updateMetaOrgDBWithTask metaOrgDB metaTask =
-  metaOrgDB {
-    dbMetaTasks = (M.insert (metaTaskId metaTask) metaTask (dbMetaTasks metaOrgDB)) }
 
