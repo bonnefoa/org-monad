@@ -16,7 +16,7 @@ data Task = Task {
 
 instance Monoid Task where
   mempty = Task {
-      taskId     = 1
+      taskId     = 0
       , taskName = mempty
     }
   mappend t1 _t2 = t1

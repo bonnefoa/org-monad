@@ -21,14 +21,14 @@ getAcidState :: IO(MetaDataState)
 getAcidState = openLocalState mempty
 
 writeState :: MetaTask -> Update MetaOrgDB ()
-writeState task = do
+writeState metaTask = do
   metaOrgDB <- get
-  put (metaOrgDB {dbMetaTasks = task : (dbMetaTasks metaOrgDB) })
+  put $ updateMetaOrgDBWithTask metaOrgDB metaTask
 
-queryState :: Query MetaOrgDB [MetaTask]
+queryState :: Query MetaOrgDB MetaTaskMap
 queryState = do
-  MetaOrgDB task <- ask
-  return task
+  MetaOrgDB metaTask <- ask
+  return metaTask
 
 $(makeAcidic ''MetaOrgDB ['writeState, 'queryState])
 
