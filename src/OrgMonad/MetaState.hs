@@ -1,14 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable, TypeFamilies, TemplateHaskell #-}
-module OrgMonad.AcidState
+module OrgMonad.MetaState
   where
 
+import Control.Monad.Reader
+import Control.Monad.State
 import Data.Acid
 import Data.Monoid
-
-import Control.Monad.State
-import Control.Monad.Reader
 import Data.SafeCopy
-
 import Data.Typeable
 import OrgMonad.Type
 import qualified Data.Map as M

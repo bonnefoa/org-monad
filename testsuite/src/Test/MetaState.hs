@@ -1,4 +1,4 @@
-module Test.AcidState
+module Test.MetaState
   where
 
 import Data.Acid
@@ -12,8 +12,8 @@ import OrgMonad.Backends.AcidBackend
 import qualified Data.Map as M
 import System.Directory
 
-testAcidState :: Test
-testAcidState = TestCase assertionAcidState
+testMetaState :: Test
+testMetaState = TestCase assertionAcidState
 
 assertionAcidState :: Assertion
 assertionAcidState = do
