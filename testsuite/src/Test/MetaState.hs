@@ -3,14 +3,11 @@ module Test.MetaState
 
 import Data.Acid
 import Data.Monoid
-import Test.HUnit hiding (assert)
-import Data.Acid
-
-import OrgMonad.Type
 import OrgMonad.MetaState
-
+import OrgMonad.Type
 import qualified Data.Map as M
 import System.Directory
+import Test.HUnit hiding (assert)
 
 testMetaState :: Test
 testMetaState = TestCase assertionMetaState

@@ -7,9 +7,7 @@ import Control.Monad.State
 import Data.Acid
 import Data.Monoid
 import Data.SafeCopy
-import Data.Typeable
 import OrgMonad.Type
-import qualified Data.Map as M
 
 type MetaDataState = AcidState MetaOrgDB
 
