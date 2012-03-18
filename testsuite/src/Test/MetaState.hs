@@ -21,6 +21,6 @@ assertionMetaState = do
   acid <- getAcidState
   let testDb = MetaTask 1
   update acid (UpdateTask testDb)
-  res <- query acid QueryState
+  res <- query acid GetMetaMap
   Just testDb @?= M.lookup 1 res
 

@@ -24,10 +24,10 @@ updateTask metaTask = do
   metaOrgDB <- get
   put $ updateMetaOrgDBWithTask metaOrgDB metaTask
 
-queryState :: Query MetaOrgDB MetaTaskMap
-queryState = do
+getMetaMap :: Query MetaOrgDB MetaTaskMap
+getMetaMap = do
   MetaOrgDB metaTask <- ask
   return metaTask
 
-$(makeAcidic ''MetaOrgDB ['updateTask, 'queryState])
+$(makeAcidic ''MetaOrgDB ['updateTask, 'getMetaMap])
 
