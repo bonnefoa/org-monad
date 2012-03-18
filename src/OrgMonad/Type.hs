@@ -1,9 +1,9 @@
 module OrgMonad.Type
   where
 
-import qualified Data.Map as M
-import Data.Typeable
 import Data.Monoid
+import Data.Typeable
+import qualified Data.Map as M
 
 type MetaTaskMap = M.Map Integer MetaTask
 

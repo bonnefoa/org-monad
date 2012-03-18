@@ -6,21 +6,21 @@ import Data.Monoid
 import Test.HUnit hiding (assert)
 import Data.Acid
 
-import OrgMonad.Backends.AcidType
-import OrgMonad.Backends.AcidBackend
+import OrgMonad.Type
+import OrgMonad.MetaState
 
 import qualified Data.Map as M
 import System.Directory
 
 testMetaState :: Test
-testMetaState = TestCase assertionAcidState
+testMetaState = TestCase assertionMetaState
 
-assertionAcidState :: Assertion
-assertionAcidState = do
+assertionMetaState :: Assertion
+assertionMetaState = do
   removeDirectoryRecursive "state"
   acid <- getAcidState
-  let testDb = Task 1 "test"
-  update acid (WriteState testDb)
+  let testDb = MetaTask 1
+  update acid (UpdateTask testDb)
   res <- query acid QueryState
   Just testDb @?= M.lookup 1 res
 

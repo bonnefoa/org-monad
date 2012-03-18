@@ -11,7 +11,6 @@ import Data.Typeable
 import OrgMonad.Type
 import qualified Data.Map as M
 
-
 type MetaDataState = AcidState MetaOrgDB
 
 $(deriveSafeCopy 0 'base ''MetaTask)
@@ -20,8 +19,8 @@ $(deriveSafeCopy 0 'base ''MetaOrgDB)
 getAcidState :: IO(MetaDataState)
 getAcidState = openLocalState mempty
 
-writeState :: MetaTask -> Update MetaOrgDB ()
-writeState metaTask = do
+updateTask :: MetaTask -> Update MetaOrgDB ()
+updateTask metaTask = do
   metaOrgDB <- get
   put $ updateMetaOrgDBWithTask metaOrgDB metaTask
 
@@ -30,5 +29,5 @@ queryState = do
   MetaOrgDB metaTask <- ask
   return metaTask
 
-$(makeAcidic ''MetaOrgDB ['writeState, 'queryState])
+$(makeAcidic ''MetaOrgDB ['updateTask, 'queryState])
 
