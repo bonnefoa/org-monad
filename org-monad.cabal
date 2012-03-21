@@ -51,6 +51,7 @@ Test-Suite test-org-monad
     Distribution.TestSuite.QuickCheck2
     Test.Backends.AcidBackend
     Test.IndexState
+    Test.Common
     Test.OrgMonad
   test-module           : Test.Suite
   build-depends         :

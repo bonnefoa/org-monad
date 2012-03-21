@@ -10,6 +10,7 @@ import OrgMonad.IndexType
 
 type IndexAcidOrgState a = AcidState (IndexOrgDB a)
 
+
 $(deriveSafeCopy 0 'base ''IndexTask)
 $(deriveSafeCopy 0 'base ''IndexOrgDB)
 

@@ -12,16 +12,17 @@ import OrgMonad.Backends.AcidBackend
 
 import qualified Data.Map as M
 import System.Directory
+import Test.Common
 
 testAcidBackend :: Test
 testAcidBackend = TestCase assertionAcidState
 
 assertionAcidState :: Assertion
 assertionAcidState = do
-  removeDirectoryRecursive "state"
+  cleanStateDir
   acid <- openLocalState mempty
   let testDb = Task 1 "test"
   update acid (WriteState testDb)
-  res <- query acid QueryState
+  res <- query acid GetTasks
   Just testDb @?= M.lookup 1 res
 

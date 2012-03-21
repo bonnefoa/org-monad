@@ -19,10 +19,10 @@ writeState task = do
   orgDB <- get
   put (updateOrgDBWithTask orgDB task)
 
-queryState :: Query OrgDB TaskMap
-queryState = do
+getTasks :: Query OrgDB TaskMap
+getTasks = do
   OrgDB task <- ask
   return task
 
-$(makeAcidic ''OrgDB ['writeState, 'queryState])
+$(makeAcidic ''OrgDB ['writeState, 'getTasks])
 

@@ -12,6 +12,7 @@ import qualified Data.Map as M
 import System.Directory
 import Test.HUnit hiding (assert)
 import Data.SafeCopy
+import Test.Common
 
 data TestBackend = TestBackend
   deriving (Show, Typeable)
@@ -23,7 +24,7 @@ testIndexState = TestCase assertionIndexState
 
 assertionIndexState :: Assertion
 assertionIndexState = do
-  removeDirectoryRecursive "state"
+  cleanStateDir
   acid <- openLocalState mempty
   let testTask = IndexTask 1 [TestBackend]
   update acid (UpdateTask testTask)

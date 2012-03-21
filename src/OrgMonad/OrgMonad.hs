@@ -15,19 +15,21 @@ data SimpleBackend = SimpleBackend {
   orgDbId :: TaskId
 } deriving (Show, Typeable)
 
+type ReifiedIndex = IndexAcidOrgState SimpleBackend
+
 $(deriveSafeCopy 0 'base ''SimpleBackend)
 
-{-instance BackendSync SimpleBackend where-}
-  {-backendPull ::-}
+instance BackendSync SimpleBackend where
+  backendPull ::
 
 data GlobalConf = GlobalConf {
   confBackend :: AcidOrgState
-  , confIndexBackend :: IndexAcidOrgState SimpleBackend
+  , confIndexBackend :: ReifiedIndex
 }
 
-{-initConf :: GlobalConf-}
-{-initConf = do-}
-  {-acid <- openLocalState mempty-}
-  {-metaAcid <- openLocalState mempty-}
-  {-return $ GlobalConf acid metaAcid-}
+initConf :: IO GlobalConf
+initConf = do
+  acid <- openLocalState mempty
+  metaAcid <- openLocalState mempty
+  return $ GlobalConf acid metaAcid
 

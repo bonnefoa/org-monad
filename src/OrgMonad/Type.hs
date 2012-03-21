@@ -21,4 +21,3 @@ instance Monoid Task where
       , taskName = mempty
     }
   mappend t1 _t2 = t1
-
