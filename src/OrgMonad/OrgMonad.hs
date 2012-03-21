@@ -1,6 +1,7 @@
 module OrgMonad.OrgMonad
   where
 
+import Control.Monad.Reader
 import Data.Acid
 import Data.Monoid
 import Data.SafeCopy
@@ -15,17 +16,20 @@ data SimpleBackend = SimpleBackend {
   orgDbId :: TaskId
 } deriving (Show, Typeable)
 
-type ReifiedIndex = IndexAcidOrgState SimpleBackend
-
-$(deriveSafeCopy 0 'base ''SimpleBackend)
-
-instance BackendSync SimpleBackend where
-  backendPull ::
-
 data GlobalConf = GlobalConf {
   confBackend :: AcidOrgState
   , confIndexBackend :: ReifiedIndex
 }
+
+type ReifiedIndex = IndexAcidOrgState SimpleBackend
+
+$(deriveSafeCopy 0 'base ''SimpleBackend)
+
+instance BackendSync SimpleBackend GlobalConf where
+  backendPull indexTask = return mempty
+  backendPush indexTask task = do
+    acid <- asks confBackend
+    lift $ pushToAcidBackend task acid
 
 initConf :: IO GlobalConf
 initConf = do

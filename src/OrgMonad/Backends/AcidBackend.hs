@@ -14,8 +14,8 @@ type AcidOrgState = AcidState OrgDB
 $(deriveSafeCopy 0 'base ''Task)
 $(deriveSafeCopy 0 'base ''OrgDB)
 
-writeState :: Task -> Update OrgDB ()
-writeState task = do
+writeTask :: Task -> Update OrgDB ()
+writeTask task = do
   orgDB <- get
   put (updateOrgDBWithTask orgDB task)
 
@@ -24,5 +24,9 @@ getTasks = do
   OrgDB task <- ask
   return task
 
-$(makeAcidic ''OrgDB ['writeState, 'getTasks])
+$(makeAcidic ''OrgDB ['writeTask, 'getTasks])
+
+pushToAcidBackend :: Task -> AcidOrgState -> IO ()
+pushToAcidBackend task acid =
+  update acid (WriteTask task)
 

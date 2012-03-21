@@ -67,4 +67,5 @@ Test-Suite test-org-monad
     , time >= 1.4
     , containers == 0.4.1.0
     , directory == 1.1.0.1
+    , mtl >= 2.0
 

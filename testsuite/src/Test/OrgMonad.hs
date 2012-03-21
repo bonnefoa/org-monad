@@ -2,6 +2,7 @@
 module Test.OrgMonad
   where
 
+import Control.Monad.Reader
 import Data.Acid
 import Data.Monoid
 import Data.SafeCopy
@@ -22,7 +23,7 @@ testOrgMonad = TestCase assertionSimpleBackend
 assertionSimpleBackend :: Assertion
 assertionSimpleBackend = do
   cleanStateDir
-  GlobalConf acid indexAcid <- initConf
+  conf@(GlobalConf acid indexAcid) <- initConf
 
   {-Push index-}
   let testBackend = SimpleBackend 1
@@ -34,7 +35,7 @@ assertionSimpleBackend = do
 
   {-Push a task to backend-}
   let testTask = mempty {taskId=1, taskName="test"}
-  backendPush indexTask testTask
+  runReaderT (backendPush indexTask testTask) conf
 
   {-Check backend-}
   res <- query acid GetTasks

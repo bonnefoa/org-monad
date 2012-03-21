@@ -21,8 +21,8 @@ assertionAcidState :: Assertion
 assertionAcidState = do
   cleanStateDir
   acid <- openLocalState mempty
-  let testDb = Task 1 "test"
-  update acid (WriteState testDb)
+  let testTask = Task 1 "test"
+  pushToAcidBackend testTask acid
   res <- query acid GetTasks
-  Just testDb @?= M.lookup 1 res
+  Just testTask @?= M.lookup 1 res
 

@@ -1,6 +1,7 @@
 module OrgMonad.IndexType
   where
 
+import Control.Monad.Reader
 import Data.Acid
 import Data.Monoid
 import Data.Typeable
@@ -34,9 +35,9 @@ updateIndexOrgDBWithTask metaOrgDB metaTask =
 
 -- * Backends definitions
 
-class BackendSync a where
-  backendPull :: IndexTask a -> IO(Task)
-  backendPush :: IndexTask a -> Task -> IO ()
+class BackendSync a b where
+  backendPull :: IndexTask a -> (ReaderT b) IO(Task)
+  backendPush :: IndexTask a -> Task -> (ReaderT b) IO ()
 
 -- * Types synonyms
 
