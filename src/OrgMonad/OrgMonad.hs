@@ -6,8 +6,8 @@ import Data.Monoid
 import Data.SafeCopy
 import Data.Typeable
 import OrgMonad.Backends.AcidBackend
-import OrgMonad.MetaState
-import OrgMonad.MetaType
+import OrgMonad.IndexState
+import OrgMonad.IndexType
 import OrgMonad.Type
 import qualified Data.Map as M
 
@@ -22,12 +22,12 @@ $(deriveSafeCopy 0 'base ''SimpleBackend)
 
 data GlobalConf = GlobalConf {
   confBackend :: AcidOrgState
-  , confMetaBackend :: MetaAcidOrgState SimpleBackend
+  , confIndexBackend :: IndexAcidOrgState SimpleBackend
 }
 
-initConf :: GlobalConf
-initConf = do
-  acid <- openLocalState mempty
-  metaAcid <- openLocalState mempty
-  return $ GlobalConf acid metaAcid
+{-initConf :: GlobalConf-}
+{-initConf = do-}
+  {-acid <- openLocalState mempty-}
+  {-metaAcid <- openLocalState mempty-}
+  {-return $ GlobalConf acid metaAcid-}
 

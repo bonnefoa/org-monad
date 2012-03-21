@@ -5,14 +5,14 @@ import Distribution.TestSuite
 import qualified Distribution.TestSuite.HUnit as HU
 import qualified Distribution.TestSuite.QuickCheck2 as QC
 import Test.OrgMonad
-import Test.MetaState
+import Test.IndexState
 import Test.Backends.AcidBackend
 
 tests :: [Test]
 tests = huTests ++ qcTests
   where
     huTests = $(HU.autoTest [
-      "testMetaState"
+      "testIndexState"
       , "testAcidBackend"
       , "testOrgMonad"
       ])

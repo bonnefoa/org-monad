@@ -5,9 +5,9 @@ module Test.OrgMonad
 import Data.Acid
 import Data.Typeable
 import Data.Monoid
-import OrgMonad.MetaState
+import OrgMonad.IndexState
 import OrgMonad.Type
-import OrgMonad.MetaType
+import OrgMonad.IndexType
 import qualified Data.Map as M
 import System.Directory
 import Test.HUnit hiding (assert)
@@ -19,11 +19,11 @@ testOrgMonad = TestCase assertionRead
 assertionRead :: Assertion
 assertionRead = do
   removeDirectoryRecursive "state"
-  conf <- initConf
+  {-conf <- initConf-}
 
-  {-let testTask = MetaTask 1 [TestBackend]-}
+  {-let testTask = IndexTask 1 [TestBackend]-}
   {-update acid (UpdateTask testTask)-}
-  {-res <- query acid GetMetaTasks-}
+  {-res <- query acid GetIndexTasks-}
   {-Just testTask @?= M.lookup 1 res-}
   return ()
 

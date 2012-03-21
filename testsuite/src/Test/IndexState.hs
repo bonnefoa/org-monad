@@ -1,13 +1,13 @@
 {-# LANGUAGE DeriveDataTypeable, TypeFamilies, TemplateHaskell #-}
-module Test.MetaState
+module Test.IndexState
   where
 
 import Data.Acid
 import Data.Typeable
 import Data.Monoid
-import OrgMonad.MetaState
+import OrgMonad.IndexState
 import OrgMonad.Type
-import OrgMonad.MetaType
+import OrgMonad.IndexType
 import qualified Data.Map as M
 import System.Directory
 import Test.HUnit hiding (assert)
@@ -18,15 +18,15 @@ data TestBackend = TestBackend
 
 $(deriveSafeCopy 0 'base ''TestBackend)
 
-testMetaState :: Test
-testMetaState = TestCase assertionMetaState
+testIndexState :: Test
+testIndexState = TestCase assertionIndexState
 
-assertionMetaState :: Assertion
-assertionMetaState = do
+assertionIndexState :: Assertion
+assertionIndexState = do
   removeDirectoryRecursive "state"
   acid <- openLocalState mempty
-  let testTask = MetaTask 1 [TestBackend]
+  let testTask = IndexTask 1 [TestBackend]
   update acid (UpdateTask testTask)
-  res <- query acid GetMetaTasks
+  res <- query acid GetIndexTasks
   Just testTask @?= M.lookup 1 res
 
