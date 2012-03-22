@@ -8,6 +8,7 @@ import Data.Acid
 import Data.SafeCopy
 import OrgMonad.Backends.AcidType
 import OrgMonad.Type
+import qualified Data.Map as M
 
 type AcidOrgState = AcidState OrgDB
 
@@ -24,7 +25,10 @@ getTasks = do
   OrgDB task <- ask
   return task
 
-$(makeAcidic ''OrgDB ['writeTask, 'getTasks])
+getTask :: TaskId -> Query OrgDB (Maybe Task)
+getTask taskId = getTasks >>= return . (M.lookup taskId)
+
+$(makeAcidic ''OrgDB ['writeTask, 'getTasks, 'getTask])
 
 pushToAcidBackend :: Task -> AcidOrgState -> IO ()
 pushToAcidBackend task acid =

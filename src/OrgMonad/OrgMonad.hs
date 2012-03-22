@@ -13,7 +13,7 @@ import OrgMonad.Type
 import qualified Data.Map as M
 
 data SimpleBackend = SimpleBackend {
-  orgDbId :: TaskId
+  mbOrgDbId :: Maybe TaskId
 } deriving (Show, Typeable)
 
 data GlobalConf = GlobalConf {
@@ -26,7 +26,11 @@ type ReifiedIndex = IndexAcidOrgState SimpleBackend
 $(deriveSafeCopy 0 'base ''SimpleBackend)
 
 instance BackendSync SimpleBackend GlobalConf where
-  backendPull indexTask = return mempty
+  backendPull indexTask = do
+    acid <- asks confBackend
+    {-let ga = (indexTaskBackend indexTask >>= GetTask)-}
+    {-lift $ ga >>= query acid-}
+    return mempty
   backendPush indexTask task = do
     acid <- asks confBackend
     lift $ pushToAcidBackend task acid
@@ -34,6 +38,6 @@ instance BackendSync SimpleBackend GlobalConf where
 initConf :: IO GlobalConf
 initConf = do
   acid <- openLocalState mempty
-  metaAcid <- openLocalState mempty
-  return $ GlobalConf acid metaAcid
+  indexAcid <- openLocalState mempty
+  return $ GlobalConf acid indexAcid
 

@@ -17,29 +17,43 @@ import System.Directory
 import Test.HUnit hiding (assert)
 import Test.Common
 
-testOrgMonad :: Test
-testOrgMonad = TestCase assertionSimpleBackend
+testOrgMonadPush :: Test
+testOrgMonadPush = TestCase assertionPush
 
-assertionSimpleBackend :: Assertion
-assertionSimpleBackend = do
-  cleanStateDir
-  conf@(GlobalConf acid indexAcid) <- initConf
+testOrgMonadPull :: Test
+testOrgMonadPull = TestCase assertionPull
 
+testBackend = SimpleBackend (Just 1)
+indexTask = IndexTask 1 testBackend
+testTask = mempty {taskId=1, taskName="test"}
+
+simplePush :: GlobalConf -> IO()
+simplePush conf@(GlobalConf acid indexAcid) = do
   {-Push index-}
-  let testBackend = SimpleBackend 1
-  let indexTask = IndexTask 1 [testBackend]
   update indexAcid (UpdateTask indexTask)
-  {-Check index-}
-  res <- query indexAcid GetIndexTasks
-  Just indexTask @?= M.lookup 1 res
-
   {-Push a task to backend-}
-  let testTask = mempty {taskId=1, taskName="test"}
   runReaderT (backendPush indexTask testTask) conf
 
+assertionPush :: Assertion
+assertionPush = do
+  cleanStateDir
+  conf@(GlobalConf acid indexAcid) <- initConf
+  simplePush conf
+  {-Check index-}
+  indexInBase <- query indexAcid (GetIndexTask 1)
+  Just indexTask @?= indexInBase
   {-Check backend-}
-  res <- query acid GetTasks
-  Just testTask @?= M.lookup 1 res
+  taskInBase <- query acid (GetTask 1)
+  Just testTask @?= taskInBase
+  return ()
 
+assertionPull :: Assertion
+assertionPull = do
+  cleanStateDir
+  conf@(GlobalConf acid indexAcid) <- initConf
+  simplePush conf
+  taskInBase <- query acid (GetTask 1)
+  inBaseTask <- runReaderT (backendPull indexTask) conf
+  inBaseTask @?= taskInBase
   return ()
 

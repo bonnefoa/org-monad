@@ -7,6 +7,7 @@ import Control.Monad.State
 import Data.Acid
 import Data.SafeCopy
 import OrgMonad.IndexType
+import qualified Data.Map as M
 
 type IndexAcidOrgState a = AcidState (IndexOrgDB a)
 
@@ -15,14 +16,18 @@ $(deriveSafeCopy 0 'base ''IndexTask)
 $(deriveSafeCopy 0 'base ''IndexOrgDB)
 
 updateTask :: IndexTask a -> Update (IndexOrgDB a) ()
-updateTask metaTask = do
-  metaOrgDB <- get
-  put $ updateIndexOrgDBWithTask metaOrgDB metaTask
+updateTask indexTask = do
+  indexOrgDB <- get
+  put $ updateIndexOrgDBWithTask indexOrgDB indexTask
 
 getIndexTasks :: Query (IndexOrgDB a) (IndexTaskMap a)
 getIndexTasks = do
-  IndexOrgDB metaTask <- ask
-  return metaTask
+  IndexOrgDB indexTask <- ask
+  return indexTask
 
-$(makeAcidic ''IndexOrgDB ['updateTask, 'getIndexTasks])
+getIndexTask :: IndexId -> Query (IndexOrgDB a) (Maybe (IndexTask a))
+getIndexTask indexId = getIndexTasks >>= return . (M.lookup indexId)
+
+
+$(makeAcidic ''IndexOrgDB ['updateTask, 'getIndexTasks, 'getIndexTask])
 

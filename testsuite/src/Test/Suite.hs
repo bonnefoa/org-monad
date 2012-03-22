@@ -14,7 +14,8 @@ tests = huTests ++ qcTests
     huTests = $(HU.autoTest [
       "testIndexState"
       , "testAcidBackend"
-      , "testOrgMonad"
+      , "testOrgMonadPush"
+      , "testOrgMonadPull"
       ])
     qcTests = $(QC.autoTest [
       ])
