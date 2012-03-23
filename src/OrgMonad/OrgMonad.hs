@@ -1,6 +1,7 @@
 module OrgMonad.OrgMonad
   where
 
+import Data.Maybe
 import Control.Monad.Reader
 import Data.Acid
 import Data.Monoid
@@ -10,7 +11,6 @@ import OrgMonad.Backends.AcidBackend
 import OrgMonad.IndexState
 import OrgMonad.IndexType
 import OrgMonad.Type
-import qualified Data.Map as M
 
 data SimpleBackend = SimpleBackend {
   mbOrgDbId :: Maybe TaskId
@@ -28,10 +28,9 @@ $(deriveSafeCopy 0 'base ''SimpleBackend)
 instance BackendSync SimpleBackend GlobalConf where
   backendPull indexTask = do
     acid <- asks confBackend
-    {-let ga = (indexTaskBackend indexTask >>= GetTask)-}
-    {-lift $ ga >>= query acid-}
-    return mempty
-  backendPush indexTask task = do
+    let mbTask = (GetMbTask . mbOrgDbId . indexTaskBackend) indexTask
+    lift $ (query acid) mbTask
+  backendPush _indexTask task = do
     acid <- asks confBackend
     lift $ pushToAcidBackend task acid
 

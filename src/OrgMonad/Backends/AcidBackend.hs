@@ -25,10 +25,14 @@ getTasks = do
   OrgDB task <- ask
   return task
 
-getTask :: TaskId -> Query OrgDB (Maybe Task)
-getTask taskId = getTasks >>= return . (M.lookup taskId)
+getMbTask :: Maybe TaskId -> Query OrgDB (Maybe Task)
+getMbTask (Just tskId) = getTask tskId
+getMbTask Nothing = return Nothing
 
-$(makeAcidic ''OrgDB ['writeTask, 'getTasks, 'getTask])
+getTask :: TaskId -> Query OrgDB (Maybe Task)
+getTask tskId = getTasks >>= return . (M.lookup tskId)
+
+$(makeAcidic ''OrgDB ['writeTask, 'getTasks, 'getTask, 'getMbTask])
 
 pushToAcidBackend :: Task -> AcidOrgState -> IO ()
 pushToAcidBackend task acid =

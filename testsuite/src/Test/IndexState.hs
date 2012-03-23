@@ -28,6 +28,6 @@ assertionIndexState = do
   acid <- openLocalState mempty
   let testTask = IndexTask 1 [TestBackend]
   update acid (UpdateTask testTask)
-  res <- query acid GetIndexTasks
-  Just testTask @?= M.lookup 1 res
+  res <- query acid (GetIndexTask 1)
+  res @?= Just testTask
 
