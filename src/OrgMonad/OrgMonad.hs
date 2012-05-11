@@ -8,8 +8,8 @@ import Data.Monoid
 import Data.SafeCopy
 import Data.Typeable
 import OrgMonad.Backends.AcidBackend
-import OrgMonad.IndexState
-import OrgMonad.IndexType
+import OrgMonad.Index.IndexState
+import OrgMonad.Index.IndexType
 import OrgMonad.Type
 
 data SimpleBackend = SimpleBackend {

@@ -1,12 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable, TypeFamilies, TemplateHaskell #-}
-module OrgMonad.IndexState
+module OrgMonad.Index.IndexState
   where
 
 import Control.Monad.Reader
 import Control.Monad.State
 import Data.Acid
 import Data.SafeCopy
-import OrgMonad.IndexType
+import OrgMonad.Index.IndexType
 import qualified Data.Map as M
 
 type IndexAcidOrgState a = AcidState (IndexOrgDB a)

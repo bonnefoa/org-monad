@@ -28,8 +28,8 @@ Library
   exposed-modules:
     OrgMonad.Type
     , OrgMonad.OrgMonad
-    , OrgMonad.IndexState
-    , OrgMonad.IndexType
+    , OrgMonad.Index.IndexState
+    , OrgMonad.Index.IndexType
     , OrgMonad.Backends.AcidBackend
     , OrgMonad.Backends.AcidType
   Build-depends:
@@ -50,7 +50,7 @@ Test-Suite test-org-monad
     Distribution.TestSuite.HUnit
     Distribution.TestSuite.QuickCheck2
     Test.Backends.AcidBackend
-    Test.IndexState
+    Test.Index.IndexState
     Test.Common
     Test.OrgMonad
   test-module           : Test.Suite

@@ -1,4 +1,4 @@
-module OrgMonad.IndexType
+module OrgMonad.Index.IndexType
   where
 
 import Control.Monad.Reader
