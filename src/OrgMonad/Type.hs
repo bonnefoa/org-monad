@@ -8,7 +8,6 @@ import Data.Typeable
 import qualified Data.Map as M
 
 type TaskId = Integer
-type TaskMap = M.Map TaskId Task
 
 -- * Task definitions
 

@@ -6,6 +6,8 @@ import Data.Typeable
 import Data.Monoid
 import OrgMonad.Type
 
+type TaskMap = M.Map TaskId Task
+
 -- * Dbs definitions
 
 data OrgDB = OrgDB {
