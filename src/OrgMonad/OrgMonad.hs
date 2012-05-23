@@ -16,6 +16,15 @@ data SimpleBackend = SimpleBackend {
   mbOrgDbId :: Maybe TaskId
 } deriving (Show, Typeable)
 
+data Backends =
+  AcidBackend {
+    acidBackendId :: TaskId
+  }
+  | FileBackend {
+    fileBackendId :: TaskId
+  }
+
+
 data GlobalConf = GlobalConf {
   confBackend :: AcidOrgState
   , confIndexBackend :: ReifiedIndex
