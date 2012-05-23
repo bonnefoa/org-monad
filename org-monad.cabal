@@ -29,7 +29,6 @@ Library
     OrgMonad.Type
     , OrgMonad.OrgMonad
     , OrgMonad.Index.IndexState
-    , OrgMonad.Index.IndexType
     , OrgMonad.Backends.AcidBackend
     , OrgMonad.Backends.AcidType
   Build-depends:

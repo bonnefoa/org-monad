@@ -9,7 +9,6 @@ import Data.SafeCopy
 import Data.Typeable
 import OrgMonad.Backends.AcidBackend
 import OrgMonad.IndexState
-import OrgMonad.IndexType
 import OrgMonad.OrgMonad
 import OrgMonad.Type
 import qualified Data.Map as M

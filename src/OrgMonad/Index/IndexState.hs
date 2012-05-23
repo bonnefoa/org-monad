@@ -6,7 +6,7 @@ import Control.Monad.Reader
 import Control.Monad.State
 import Data.Acid
 import Data.SafeCopy
-import OrgMonad.Index.IndexType
+import OrgMonad.Type
 import qualified Data.Map as M
 
 type IndexAcidOrgState a = AcidState (IndexOrgDB a)

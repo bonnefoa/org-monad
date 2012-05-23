@@ -7,7 +7,6 @@ import Data.Typeable
 import Data.Monoid
 import OrgMonad.IndexState
 import OrgMonad.Type
-import OrgMonad.IndexType
 import qualified Data.Map as M
 import System.Directory
 import Test.HUnit hiding (assert)
